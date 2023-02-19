@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 수정폼</title>
+</head>
+<body>
+<form th:action="@{/board/update/{id}(id=${board.id})}" method="post">
+  <div class="mb-3">
+    <label class="form-label">제목</label>
+    <input name="title" type="text" th:value="${board.title}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">내용</label>
+    <textarea name="content" rows="3" th:text="${board.content}"></textarea>
+  </div>
+  <button type="submit" >수정</button>
+</form>
+</body>
+</html>
