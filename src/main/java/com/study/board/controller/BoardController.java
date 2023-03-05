@@ -9,12 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class BoardController {
     @Autowired
     private BoardService boardService;
@@ -35,28 +34,13 @@ public class BoardController {
     }
 
     @GetMapping("/board/list")
-    public String boardList(Model model,
-                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-                            String searchKeyword){
+    public List<Board> boardList(Model model){
 
-        Page<Board> list = null;
-
-        if(searchKeyword == null){
-            list = boardService.boardList(pageable);
-        }else{
-            list = boardService.boardSearchList(searchKeyword, pageable);
-        }
-
-        int nowPage = list.getPageable().getPageNumber() + 1; //페이지가 0부터 시작하기 때문에 1을 더한다.
-        int startPage = Math.max(nowPage - 4, 1); //높은 값 반환
-        int endPage = Math.min(nowPage + 5, list.getTotalPages()); //둘 중 낮은 값 반환
+        List<Board> list = boardService.boardList();
 
         model.addAttribute("list", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
 
-        return "boardlist";
+        return list;
     }
 
     @GetMapping("/board/view") //localhost:8080/board/view?id=1

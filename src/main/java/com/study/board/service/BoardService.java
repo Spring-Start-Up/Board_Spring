@@ -21,14 +21,9 @@ public class BoardService {
     }
 
     //게시글 리스트 처리
-    public Page<Board> boardList(Pageable pageable){
+    public List<Board> boardList(){
 
-        return boardRepository.findAll(pageable);
-    }
-
-    public Page<Board> boardSearchList(String searchKeyword, Pageable pageable){
-
-        return boardRepository.findByTitleContaining(searchKeyword, pageable);
+        return boardRepository.findAll();
     }
 
     //특정 게시글 불러오기
