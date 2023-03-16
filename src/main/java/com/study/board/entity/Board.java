@@ -12,9 +12,8 @@ import javax.persistence.Id;
 public class Board { //테이블 이름명과 동일
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer bno;
 
-    private String title;
+    private String name;
 
-    private String content;
 }
